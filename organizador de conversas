@@ -1,0 +1,69 @@
+
+# ORGANIZADOR DE CONVERSAS COM PYTHON
+
+mensagens = [
+    "Ola, gostaria de saber o preco do produto",
+    "Estou enviando meu curriculo para a vaga",
+    "Preciso confirmar o pagamento da cobranca",
+    "Gostaria de informacoes sobre atendimento",
+    "Segue meu curriculo atualizado",
+    "O pagamento foi realizado hoje",
+    "Tenho interesse em conhecer os servicos"
+]
+
+categorias = {
+    "Clientes": ["preco", "produto", "servicos"],
+    "Curriculos": ["curriculo", "vaga", "emprego"],
+    "Financeiro": ["pagamento", "cobranca", "boleto"],
+    "Atendimento": ["atendimento", "informacoes"]
+}
+
+
+def organizar_mensagens(mensagens):
+
+    resultados = {
+        categoria: [] for categoria in categorias
+    }
+
+    resultados["Outros"] = []
+
+    for mensagem in mensagens:
+
+        mensagem_encontrada = False
+
+        for categoria, palavras in categorias.items():
+
+            for palavra in palavras:
+
+                if palavra in mensagem.lower():
+
+                    resultados[categoria].append(mensagem)
+                    mensagem_encontrada = True
+                    break
+
+            if mensagem_encontrada:
+                break
+
+        if not mensagem_encontrada:
+            resultados["Outros"].append(mensagem)
+
+    return resultados
+
+
+# EXIBINDO OS RESULTADOS
+
+resultado = organizar_mensagens(mensagens)
+
+print("===== ORGANIZADOR DE CONVERSAS =====")
+
+for categoria, lista in resultado.items():
+
+    print(f"\n{categoria}:")
+
+    if lista:
+        for mensagem in lista:
+            print("-", mensagem)
+    else:
+        print("Nenhuma mensagem encontrada.")
+
+print("\nOrganizacao finalizada!")
